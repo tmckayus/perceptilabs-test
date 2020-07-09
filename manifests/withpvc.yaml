@@ -1,0 +1,6 @@
+apiVersion: perceptilabs.com/v1
+kind: PerceptiLabs
+metadata:
+  name: example-perceptilabs
+spec:
+  corePvc: perceptilabs-pvc
