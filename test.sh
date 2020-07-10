@@ -69,7 +69,7 @@ testDelete() {
 # make sure we're not starting with a pvc
 set +e
 testDelete
-oc delete pvc perceptilabs-pvc
+oc delete pvc perceptilabs-pvc 2> /dev/null
 os::cmd::try_until_failure "oc get pvc perceptilabs-pvc"
 set -e
 
