@@ -31,6 +31,9 @@ checkCreate() {
   # If the endpoint list is non-null then services successfully mapped to pods
   os::cmd::try_until_not_text "oc get endpoints perceptilabs-core -o=jsonpath='{.subsets}' | wc -c" '0'
   os::cmd::try_until_not_text "oc get endpoints perceptilabs-frontend -o=jsonpath='{.subsets}' | wc -c" '0'
+
+  host=$(oc get route perceptilabs-frontend -o jsonpath="{.spec.host}")
+  os::cmd::try_until_text "curl $host" "PerceptiLabs"
 }
 
 checkVolume() {
@@ -65,8 +68,7 @@ testDelete() {
 # make sure we're not starting with any perceptilabs
 # make sure we're not starting with a pvc
 set +e
-oc delete perceptilabs --all
-os::cmd::try_until_text "oc get perceptilabs --no-headers 2> /dev/null | wc -l" '0'
+testDelete
 oc delete pvc perceptilabs-pvc
 os::cmd::try_until_failure "oc get pvc perceptilabs-pvc"
 set -e
