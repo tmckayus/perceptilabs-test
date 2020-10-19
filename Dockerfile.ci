@@ -12,4 +12,6 @@ RUN wget https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/o
 
 COPY . /opt/peak/operator-tests/ci
 
+WORKDIR /opt/peak
+
 CMD ["/opt/peak/run.sh","-p"]
