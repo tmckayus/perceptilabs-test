@@ -1,8 +1,9 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 
 RUN dnf install -y wget tar golang bc git && dnf update -y && dnf clean all
-RUN git clone https://github.com/AICoE/peak /opt/peak && \
+RUN git clone https://github.com/tmckayus/peak-1 /opt/peak && \
     cd /opt/peak && \
+    git checkout addwhoami && \
     git submodule update --init
 
 RUN chgrp -R 0 /opt/peak && chmod -R g+rwX /opt/peak
